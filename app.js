@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var partials = require('express-partials');
 
 var routes = require('./routes/index');
 
@@ -13,12 +14,12 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(partials());
 // uncomment after placing your favicon in /public
 //Nowdays that use of favicon is deprecated, it's used to implement it
 //on the webpage's header:
 //<link rel="icon" href="favicon.ico" type="image/x-icon"/>
 app.use(favicon(__dirname + '/public/favicon.ico'));
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

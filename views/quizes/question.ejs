@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8"/>
-    <title>QUIZ</title>
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
-  </head>
-  <body>
-    <h2>QUIZ: A Question Game</h2>
-    <form method='get' action='/quizes/answer'>
-      Question: <%= question %>
-      <input type='text' name='answer' placeholder='Your answer' autofocus />
-      <input type='submit' value='Check'/>
-    </form>
-  </body>
-</html>
+<form method='get' action='/quizes/answer'>
+  Question: <%= question %>
+  <input type='text' name='answer' placeholder='Your answer' autofocus />
+  <input type='submit' value='Check'/>
+</form>
