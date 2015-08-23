@@ -1,0 +1,2 @@
+//Create a file .env and setup env variable DATABASE_STORAGE
+DATABASE_STORAGE = quizDB.sqlite
