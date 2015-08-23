@@ -1,0 +1,10 @@
+mkdir MYPROJECT
+cd MYPROJECT
+npm install express-generator@4.9.0
+node_modules/express-generator/bin/express --ejs QUIZ-PROJECT
+cd QUIZ-PROJECT
+git init
+//Set-up your .gitignore file
+npm install //This will install packages specified in package.json
+git add .
+git commit -m "express-generator skeleton"
