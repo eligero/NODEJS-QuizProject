@@ -1,0 +1,14 @@
+//Ubuntu
+apt-get install heroku heroku-toolbelt
+//with this packets we have access to heroku and foreman (nf)
+//Create a Heroku account
+//Adapt your application to Heroku
+//Check your app in local mode before upload to heroku
+nf start //foreman command is nf
+//Open your browser and go to localhost:5000
+//If it's ok, then continue
+heroku login
+heroku create //This will create an heroku app with a random name and a remote repository
+heroku apps:rename name-what-you-want
+git push heroku master //only master branch can be pushed
+heroku open //Will open the remote app in your browser
