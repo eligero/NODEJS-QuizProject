@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>QUIZ</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+  </head>
+  <body>
+    <h2>QUIZ: A Question Game</h2>
+    Your answer was: <%= yourAnswer %><br/>
+    <b><%= answer %></b><br/>
+
+    <form method='get' action='/quizes/question'>
+      <input type='submit' value='Try Again!'/>
+    </form>
+  </body>
+</html>
