@@ -1,2 +1,8 @@
 //Create a file .env and setup env variable DATABASE_STORAGE
 DATABASE_STORAGE = quizDB.sqlite
+
+//Setup DATABASE_URL env variable on .env, necessary because we are playing
+//with SQLite in local mode and with Portgres in remote mode.
+//.env file is only visible on local mode
+//On remote mode, we have to setup this env variable in the remote server
+DATABASE_URL=sqlite://:@:/

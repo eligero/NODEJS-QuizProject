@@ -1,6 +1,8 @@
 //Ubuntu
 apt-get install heroku heroku-toolbelt
 //with this packets we have access to heroku and foreman (nf)
+
+
 //Create a Heroku account
 //Adapt your application to Heroku
 //Check your app in local mode before upload to heroku
@@ -12,3 +14,11 @@ heroku create //This will create an heroku app with a random name and a remote r
 heroku apps:rename name-what-you-want
 git push heroku master //only master branch can be pushed
 heroku open //Will open the remote app in your browser
+
+
+//DB Postgres
+heroku addons:create heroku-postgresql:hobby-dev
+//DATABASE_URL env variable will be auto-initialized if not setup by yourself
+//DATABASE_URL=postgres://user:passwd@host:port/database
+//initialize NODE_ENV env variable
+NODE_ENV=production
