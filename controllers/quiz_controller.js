@@ -16,6 +16,26 @@ exports.load = function(req, res, next, quizId){
   });
 };
 
+/* GET /quizes/new */
+exports.new = function(req, res){
+  var quiz = models.Quiz.build(
+    {question: "Question",
+     answer: "Answer"}
+  );
+  res.render('quizes/new', {quiz: quiz});
+};
+
+/* POST /quizes/create */
+exports.create = function(req,res){
+  var quiz = models.Quiz.build(req.body.quiz);
+  console.log("QUIZ: "+req.body.quiz);
+  quiz.save({fields: ['question', 'answer']})
+  .then(function(){
+    res.redirect('/quizes');
+  });
+};
+
+
 /* GET /quizes */
 exports.index = function(req, res, next){
   models.Quiz.findAll()
@@ -35,13 +55,18 @@ exports.show = function(req, res){
 
 /* GET /quizes/answer*/
 exports.answer = function(req, res){
-  var check = "You're wrong!";
+  var check = {msg: "You're wrong!",
+               buttonRedir: req.quiz.id,
+               buttonValue: "Try again!",
+               yourAnswer: req.query.answer};
+
   if(req.query.answer.toLowerCase() === req.quiz.answer){
-    check = "Correct!";
+    check.msg = "Correct!";
+    check.buttonRedir = "";
+    check.buttonValue = "More questions!";
   }
   res.render('quizes/answer',{
     quiz: req.quiz,
-    answer: check,
-    yourAnswer: req.query.answer
+    check: check
   });
 };

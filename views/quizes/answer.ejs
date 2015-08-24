@@ -1,7 +1,8 @@
 
-<p>Your answer was: <%= yourAnswer %><br/></p>
-<p><b><%= answer %></b>
-<form method='get' action='/quizes/<%= quiz.id %>'>
-  <input type='submit' value='Try Again!'/>
-</form>
+<p><strong>Your answer:</strong/> <%= check.yourAnswer %><br/></p>
+<p><strong><%= check.msg %></strong></p>
+<p>
+  <a href='/quizes/<%= check.buttonRedir %>'>
+    <button type="button"><%= check.buttonValue %></button>
+  </a>
 </p>
