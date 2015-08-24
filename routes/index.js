@@ -7,6 +7,9 @@ var quizController = require('../controllers/quiz_controller');
 /* commnetController in order to use methods inside comment_controller.js*/
 var commentController = require('../controllers/comment_controller');
 
+/* sessionController in order to use methods inside session_controller.js*/
+var sessionController = require('../controllers/session_controller');
+
 /* Autoload DB quiz object*/
 router.param('quizId', quizController.load);
 
@@ -15,6 +18,7 @@ router.get('/', function(req, res) {
   res.render('index', {title: 'QUIZ PROJECT', errors:[]});
 });
 
+/********************************QUIZES****************************************/
 /* GET question routes*/
 router.get('/quizes', quizController.index);
 router.get('/quizes/:quizId(\\d+)', quizController.show);
@@ -32,5 +36,17 @@ router.put('/quizes/:quizId(\\d+)', quizController.update);
 
 /* DELETE question routes*/
 router.delete('/quizes/:quizId(\\d+)', quizController.destroy);
+/********************************END*QUIZES************************************/
+
+/*********************************SESSION**************************************/
+/* GET session routes */
+router.get('/login', sessionController.new);
+router.get('/logout', sessionController.destroy);
+
+/* POST session routes */
+router.post('/login', sessionController.create);
+/*******************************END*SESSION************************************/
+
+
 
 module.exports = router;
