@@ -4,6 +4,9 @@ var router = express.Router();
 /* quizController in order to use methods inside quiz_controller.js*/
 var quizController = require('../controllers/quiz_controller');
 
+/* Autoload DB quiz object*/
+router.param('quizId', quizController.load);
+
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'QUIZ PROJECT' });
