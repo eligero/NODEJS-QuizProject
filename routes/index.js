@@ -25,4 +25,7 @@ router.post('/quizes/create', quizController.create);
 /* PUT question routes*/
 router.put('/quizes/:quizId(\\d+)', quizController.update);
 
+/* DELETE question routes*/
+router.delete('/quizes/:quizId(\\d+)', quizController.destroy);
+
 module.exports = router;

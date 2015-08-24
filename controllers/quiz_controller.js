@@ -106,3 +106,13 @@ exports.update = function(req, res){
     }
   });
 };
+
+/* DELETE /quizes/:id [PUT method-override] */
+exports.destroy = function(req, res, next){
+  req.quiz.destroy().then(function(){
+    res.redirect('/quizes');
+  })
+  .catch(function(error){
+    next(error);
+  })
+};
