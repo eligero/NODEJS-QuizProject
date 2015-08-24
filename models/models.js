@@ -37,8 +37,12 @@ sequelize.sync().then(function(){
   Quiz.count().then(function(count){
     if(count === 0){
       Quiz.create({
-        question: 'What is the best OS?',
+        question: 'What is the best desktop OS?',
         answer: 'linux'
+      });
+      Quiz.create({
+        question: 'What is the best mobile OS?',
+        answer: 'android'
       })
       .then(function(){
         console.log('DB initialized');

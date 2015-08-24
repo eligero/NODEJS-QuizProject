@@ -1,23 +1,33 @@
 /* Load models*/
 var models = require('../models/models');
 
-/*GET /quizes/question*/
-exports.question = function(req, res){
-  models.Quiz.findAll().then(function(found){
-    res.render('quizes/question',{question: found[0].question});
+exports.index = function(req, res){
+  models.Quiz.findAll()
+  .then(function(quizes){
+    res.render('quizes/index',{quizes: quizes});
   });
 };
 
+/*GET /quizes/:id */
+exports.show = function(req, res){
+  models.Quiz.find({where:{id:[req.params.quizId]}}).then(function(quiz){
+    res.render('quizes/show',{quiz: quiz});
+  });
+};
+
+
 /*GET /quizes/answer*/
 exports.answer = function(req, res){
-  models.Quiz.findAll().then(function(found){
-    if(req.query.answer.toLowerCase() === found[0].answer ){
+  models.Quiz.find({where:{id:[req.params.quizId]}}).then(function(quiz){
+    if(req.query.answer.toLowerCase() === quiz.answer ){
       res.render('quizes/answer',{
+        quiz: quiz,
         answer: 'Correct!',
         yourAnswer: req.query.answer
       });
     }else{
       res.render('quizes/answer',{
+        quiz: quiz,
         answer: "You're wrong",
         yourAnswer: req.query.answer
       });

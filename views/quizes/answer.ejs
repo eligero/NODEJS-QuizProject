@@ -1,7 +1,7 @@
 
 <p>Your answer was: <%= yourAnswer %><br/></p>
 <p><b><%= answer %></b>
-<form method='get' action='/quizes/question'>
+<form method='get' action='/quizes/<%= quiz.id %>'>
   <input type='submit' value='Try Again!'/>
 </form>
 </p>
