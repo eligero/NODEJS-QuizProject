@@ -9,7 +9,7 @@ router.param('quizId', quizController.load);
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'QUIZ PROJECT' });
+  res.render('index', {title: 'QUIZ PROJECT', errors:[]});
 });
 
 /* GET question routes*/

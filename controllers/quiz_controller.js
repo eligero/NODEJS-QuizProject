@@ -22,51 +22,61 @@ exports.new = function(req, res){
     {question: "Question",
      answer: "Answer"}
   );
-  res.render('quizes/new', {quiz: quiz});
+  res.render('quizes/new', {quiz: quiz, errors: []});
 };
 
 /* POST /quizes/create */
 exports.create = function(req,res){
   var quiz = models.Quiz.build(req.body.quiz);
-  console.log("QUIZ: "+req.body.quiz);
-  quiz.save({fields: ['question', 'answer']})
-  .then(function(){
-    res.redirect('/quizes');
+  quiz.validate().then(function(error){
+    if(error){//No HTML 5 browser
+      quiz = {question: "Question", answer: "Answer"};
+      res.render('quizes/new', {quiz: quiz, errors: error.errors});
+    }else{
+      quiz.save({fields: ['question', 'answer']})
+      .then(function(){
+        res.redirect('/quizes');
+      });
+    }
   });
 };
 
 
 /* GET /quizes */
-exports.index = function(req, res, next){
+exports.index = function(req, res){
   models.Quiz.findAll()
   .then(function(quizes){
-    res.render('quizes/index',{quizes: quizes});
-  })
-  .catch(function(error){
-    next(error);
+    res.render('quizes/index',{quizes: quizes, errors: []});
   });
 };
 
 /*GET /quizes/:id */
 exports.show = function(req, res){
-  res.render('quizes/show',{quiz: req.quiz});
+  res.render('quizes/show',{quiz: req.quiz, errors: []});
 };
 
 
-/* GET /quizes/answer*/
+/* GET /quizes/:id/answer */
 exports.answer = function(req, res){
-  var check = {msg: "You're wrong!",
-               buttonRedir: req.quiz.id,
-               buttonValue: "Try again!",
-               yourAnswer: req.query.answer};
+  if(req.query.answer.length){
+    var check = {msg: "You're wrong!",
+                 buttonRedir: req.quiz.id,
+                 buttonValue: "Try again!",
+                 yourAnswer: req.query.answer};
 
-  if(req.query.answer.toLowerCase() === req.quiz.answer){
-    check.msg = "Correct!";
-    check.buttonRedir = "";
-    check.buttonValue = "More questions!";
+    if(req.query.answer.toLowerCase() === req.quiz.answer){
+      check.msg = "Correct!";
+      check.buttonRedir = "";
+      check.buttonValue = "More questions!";
+    }
+    res.render('quizes/answer',{
+      quiz: req.quiz,
+      check: check,
+      errors: []
+    });
+  }else{ //No HTML5 browser
+    var error = new Array(Object);
+    error[0].message="Type an answer!";
+    res.render('quizes/show',{quiz: req.quiz, errors: error});
   }
-  res.render('quizes/answer',{
-    quiz: req.quiz,
-    check: check
-  });
 };
