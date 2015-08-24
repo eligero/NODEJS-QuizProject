@@ -3,3 +3,14 @@
   <input type='text' name='answer' placeholder='Your answer' autofocus required >
   <input type='submit' value='Check'></p>
 </form>
+
+<p>
+  <a href="/quizes/<%= quiz.id %>/comments/new">
+    <button>New Comment</button>
+  </a>
+</p>
+
+<p><strong>Coments:</strong></p>
+<% var index;for(index in quiz.Comments){ %>
+    <p>&#9998;<%= quiz.Comments[index].text %> </p>
+<% } %>

@@ -28,9 +28,15 @@ var sequelize = new Sequelize(
 
 /* Import Quiz table definition on quiz.js */
 var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
+var Comment = sequelize.import(path.join(__dirname, 'comment'));
+
+/* Relationship comments and questions */
+Comment.belongsTo(Quiz);
+Quiz.hasMany(Comment);
 
 /* Export Quiz table definition*/
 exports.Quiz = Quiz;
+exports.Comment = Comment;
 
 /* sequielize.sync() creates and initializes the Quiz table on the DB*/
 sequelize.sync().then(function(){
