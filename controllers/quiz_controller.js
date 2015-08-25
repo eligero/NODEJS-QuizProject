@@ -37,13 +37,27 @@ exports.new = function(req, res){
   res.render('quizes/new', {quiz: quiz, errors: []});
 };
 
-/* GET /quizes */
+/* GET /quizes && GET /user/:userId/quizes */
 exports.index = function(req, res){
-  models.Quiz.findAll()
+  var findOptions = {};
+  findOptions.order = [["question", "ASC"]];
+  if(req.user){
+    findOptions.where = {UserId: req.user.id};
+  }
+  models.Quiz.findAll(findOptions)
   .then(function(quizes){
     res.render('quizes/index',{quizes: quizes, errors: []});
+  })
+  .catch(function(error){
+    next(error);
   });
 };
+
+
+
+/*
+*/
+
 
 /*GET /quizes/:id */
 exports.show = function(req, res){

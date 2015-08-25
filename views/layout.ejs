@@ -38,6 +38,9 @@
      <nav class="main" id="n1" role="navigation">
        <span><a href="/">Home</a></span>
        <span><a href="/quizes">Questions</a></span>
+       <% if(session.user){ %>
+         <span><a href="/user/<%=session.user.id%>/quizes">My Questions</a></span>
+       <% } %>
      </nav>
 
      <section class="main" id="s1">
