@@ -1,0 +1,9 @@
+//esteban-project-quiz-key.pem=Private key (encription and signature)
+//esteban-project-quiz-csr.pem=Certificate signing request
+//quiz-2015-cert.pem= X509 certificate (encription and authentication)
+//Certificate is "auto-signed", valid for 1 year
+mkdir certs
+cd certs
+openssl genrsa -out esteban-project-quiz-key.pem 2048
+openssl req -new -sha256 -key esteban-project-quiz-key.pem -out esteban-project-quiz-csr.pem
+openssl x509 -req -in esteban-project-quiz-csr.pem -signkey esteban-project-quiz-key.pem -out esteban-project-quiz-cert.pem
