@@ -47,11 +47,12 @@ module.exports = function(sequelize, DataTypes){
     {
       instanceMethods:{
         verifyPassword: function(password){
+          //HMac no decryption
           var encripted = crypto.createHmac('sha1', key)
           .update(password)
           .digest('hex');
           return encripted === this.password;
-        }
+        },
       }
     }
   );

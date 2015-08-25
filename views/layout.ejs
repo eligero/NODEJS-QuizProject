@@ -17,15 +17,21 @@
      <header class="main" id="h1">
        <% if(!session.user){%>
          <span class="right">
+            &#10143;
             <a href="/login">Login</a>
+            &#9829;
+            <a href="/user">Sign Up</a>
          </span>
        <% }else{ %>
          <span class="right">
+           &#10143;
            <%= session.user.username %>
-            <a href="/logout">Logout</a>
+           &#9830;
+           <a href="/user/<%=session.user.id%>/edit">Settings</a>
+           &#x2716;
+           <a href="/logout">Logout</a>
          </span>
        <% } %>
-
        <h2>QUIZ<span>: A Question Game</span></h2>
      </header>
 

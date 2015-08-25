@@ -10,9 +10,14 @@ var commentController = require('../controllers/comment_controller');
 /* sessionController in order to use methods inside session_controller.js*/
 var sessionController = require('../controllers/session_controller');
 
-/* Autoload DB quiz object*/
+/* userController in order to use methods inside user_controller.js*/
+var userController = require('../controllers/user_controller');
+
+/* Autoload DB object*/
 router.param('quizId', quizController.load);
 router.param('commentId', commentController.load);
+router.param('userId', userController.load);
+
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -53,6 +58,24 @@ router.get('/logout', sessionController.destroy);
 /* POST session routes */
 router.post('/login', sessionController.create);
 /*******************************END*SESSION************************************/
+
+/******************************USERS*ACCOUNT***********************************/
+/* GET user account routes */
+router.get('/user', userController.new);
+router.get('/user/:userId(\\d+)/edit', sessionController.loginRequired,
+  userController.edit);
+
+/* POST user account routes */
+router.post('/user', userController.create);
+
+/* PUT user account routes */
+router.put('/user/:userId(\\d+)', sessionController.loginRequired,
+  userController.update);
+
+  /* PELETE user account routes */
+  router.delete('/user/:userId(\\d+)', sessionController.loginRequired,
+    userController.destroy);
+/****************************END*USERS*ACCOUNT*********************************/
 
 
 
