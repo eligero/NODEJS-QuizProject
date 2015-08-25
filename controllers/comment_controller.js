@@ -24,7 +24,10 @@ exports.ownershipRequired = function(req, res, next){
   })
   .then(function(quiz){
     if(quiz){
-      if(req.session.user.isAdmin || (quiz.UserId === req.session.user.id)){
+      var objQuizOwner = quiz.UserId;
+      var logUser = req.session.user.id;
+      var isAdmin = req.session.user.isAdmin;
+      if(isAdmin || objQuizOwner === logUser){
         next();
       }else{
         res.redirect('/');

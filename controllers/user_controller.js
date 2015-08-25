@@ -41,7 +41,10 @@ exports.authenticate = function(login, password, callback){
 
 /* MW ownershipRequired */
 exports.ownershipRequired = function(req, res, next){
-  if(req.session.user.isAdmin || (req.user.id === req.session.user.id)){
+  var objUser = req.user.id;
+  var logUser = req.session.user.id;
+  var isAdmin = req.session.user.isAdmin;
+  if(isAdmin || objUser === logUser){
     next();
   }else{
     res.redirect('/');

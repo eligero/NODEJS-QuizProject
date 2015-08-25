@@ -1,3 +1,7 @@
+<% if(quiz.image){ %>
+      <p><img class="qimage" src="/media/<%= quiz.image %>"></p>
+<% } %>
+
 <form method="get" action="/quizes/<%= quiz.id %>/answer">
   <p>Question: <%= quiz.question %>
   <input type='text' name='answer' placeholder='Your answer' autofocus required >

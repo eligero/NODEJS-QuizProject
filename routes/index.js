@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+/*Questions with images*/
+var multer = require('multer');
 
 /* quizController in order to use methods inside quiz_controller.js*/
 var quizController = require('../controllers/quiz_controller');
@@ -39,12 +41,13 @@ router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
 
 /* POST question routes*/
 router.post('/quizes/create', sessionController.loginRequired,
-  quizController.create);
+  multer({dest:'./public/media'}), quizController.create);
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
 
 /* PUT question routes*/
 router.put('/quizes/:quizId(\\d+)', sessionController.loginRequired,
-  quizController.ownershipRequired, quizController.update);
+  quizController.ownershipRequired, multer({dest:'./public/media'}),
+  quizController.update);
 
 /* DELETE question routes*/
 router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired,
