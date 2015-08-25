@@ -11,6 +11,13 @@
 </p>
 
 <p><strong>Coments:</strong></p>
-<% var index;for(index in quiz.Comments){ %>
-    <p>&#9998;<%= quiz.Comments[index].text %> </p>
+<% for(index in quiz.Comments){ %>
+  <% if(quiz.Comments[index].published || session.user){ %>
+    <p>&#9998;<%= quiz.Comments[index].text %>
+    <% if(session.user && !quiz.Comments[index].published){ %>
+      <a href="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id%>/publish">
+        <button>Release</button>
+    <%}%>
+    </p>
+  <% } %>
 <% } %>

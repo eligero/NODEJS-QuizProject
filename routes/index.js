@@ -12,6 +12,7 @@ var sessionController = require('../controllers/session_controller');
 
 /* Autoload DB quiz object*/
 router.param('quizId', quizController.load);
+router.param('commentId', commentController.load);
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -27,6 +28,8 @@ router.get('/quizes/new', sessionController.loginRequired, quizController.new);
 router.get('/quizes/:quizId(\\d+)/edit', sessionController.loginRequired,
   quizController.edit);
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
+  sessionController.loginRequired, commentController.publish);
 
 /* POST question routes*/
 router.post('/quizes/create', sessionController.loginRequired,

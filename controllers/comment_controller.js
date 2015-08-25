@@ -1,8 +1,36 @@
 var models = require('../models/models');
 
+/* Autoload DB object if requested route includes :commentId */
+exports.load = function(req, res, next, commentId){
+  models.Comment.find({
+    where:{id: Number(commentId)}
+  })
+  .then(function(comment){
+    if(comment){
+      req.comment = comment;
+      next();
+    }else{
+      next(new Error('commentId='+commentId+"Doesn't exist"));
+    }
+  }).catch(function(error){
+    next(error);
+  });
+};
+
 /* GET /quizes/:quizId/comments/new */
 exports.new = function(req, res){
   res.render('comments/new', {quizid: req.params.quizId, errors: []});
+};
+
+//GET /quizes/:quizId/comments/:commentId/publish [autoload necessary]
+exports.publish = function(req, res){
+  req.comment.published = true;
+  req.comment.save({fields: ["published"]}).then(function(){
+    res.redirect('/quizes/'+req.params.quizId);
+  })
+  .catch(function(error){
+    next(error);
+  });
 };
 
 /* POST /quizes/:quizId/comments */
