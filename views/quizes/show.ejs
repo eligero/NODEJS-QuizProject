@@ -12,12 +12,14 @@
 
 <p><strong>Coments:</strong></p>
 <% for(index in quiz.Comments){ %>
-  <% if(quiz.Comments[index].published || session.user){ %>
-    <p>&#9998;<%= quiz.Comments[index].text %>
-    <% if(session.user && !quiz.Comments[index].published){ %>
+  <% if(quiz.Comments[index].published){ %>
+    <p>&#9998;<%= quiz.Comments[index].text %></p>
+  <% }else{ %>
+    <% if(session.user && (session.user.isAdmin || (session.user && (quiz.UserId === session.user.id)))){%>
+      <p>&#x2713;<%= quiz.Comments[index].text %>
       <a href="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id%>/publish">
-        <button>Release</button>
-    <%}%>
-    </p>
+        <button>Release</button></a>
+      </p>
+    <% } %>
   <% } %>
 <% } %>

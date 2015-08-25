@@ -1,6 +1,6 @@
 var models = require('../models/models');
 
-/* Autoload DB object if requested route includes :userId */
+/* MW Autoload DB object if requested route includes :userId */
 exports.load = function(req, res, next, userId){
   models.User.find({
     where: {id: Number(userId)}
@@ -18,7 +18,7 @@ exports.load = function(req, res, next, userId){
   });
 }
 
-/* Middleware */
+/* Middleware authenticate */
 exports.authenticate = function(login, password, callback){
   models.User.find({
     where: {username: login}
@@ -37,6 +37,15 @@ exports.authenticate = function(login, password, callback){
   .catch(function(error){
     callback(error);
   });
+};
+
+/* MW ownershipRequired */
+exports.ownershipRequired = function(req, res, next){
+  if(req.session.user.isAdmin || (req.user.id === req.session.user.id)){
+    next();
+  }else{
+    res.redirect('/');
+  }
 };
 
 /* GET /user*/

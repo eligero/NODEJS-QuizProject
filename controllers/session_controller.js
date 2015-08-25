@@ -25,7 +25,7 @@ exports.create = function(req, res){
       req.session.errors = [{"message": error.toString()}];
       res.redirect("/login");
     }else{
-      req.session.user = {id: user.id, username: user.username};
+      req.session.user = {id: user.id, username: user.username, isAdmin: user.isAdmin};
       //Redirecction to path before login
       res.redirect(req.session.redir.toString());
     }

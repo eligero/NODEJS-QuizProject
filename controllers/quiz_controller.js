@@ -1,7 +1,7 @@
 /* Load models*/
 var models = require('../models/models');
 
-/* Autoload DB object if requested route includes :quizId */
+/* MW Autoload DB object if requested route includes :quizId */
 exports.load = function(req, res, next, quizId){
   models.Quiz.find({
     where: {id: Number(quizId)},
@@ -17,6 +17,15 @@ exports.load = function(req, res, next, quizId){
   }).catch(function(error){
     next(error);
   });
+};
+
+/* MW ownershipRequired */
+exports.ownershipRequired = function(req, res, next){
+  if(req.session.user.isAdmin || (req.quiz.UserId === req.session.id)){
+    next();
+  }else{
+    res.redirect('/');
+  }
 };
 
 /* GET /quizes/new */

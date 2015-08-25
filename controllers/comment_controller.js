@@ -1,6 +1,6 @@
 var models = require('../models/models');
 
-/* Autoload DB object if requested route includes :commentId */
+/* MW Autoload DB object if requested route includes :commentId */
 exports.load = function(req, res, next, commentId){
   models.Comment.find({
     where:{id: Number(commentId)}
@@ -15,6 +15,28 @@ exports.load = function(req, res, next, commentId){
   }).catch(function(error){
     next(error);
   });
+};
+
+/* MW ownershipRequired */
+exports.ownershipRequired = function(req, res, next){
+  models.Quiz.find({
+    where: {id: Number(req.comment.QuizId)}
+  })
+  .then(function(quiz){
+    if(quiz){
+      if(req.session.user.isAdmin || (quiz.UserId === req.session.user.id)){
+        next();
+      }else{
+        res.redirect('/');
+      }
+    }else{
+      next(new Error('quizId='+quizId+" Doesn't exist"));
+    }
+  })
+  .catch(function(error){
+    next(error);
+  });
+
 };
 
 /* GET /quizes/:quizId/comments/new */

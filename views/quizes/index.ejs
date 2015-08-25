@@ -7,19 +7,21 @@
             <%= quizes[i].question %></a>
         </td>
         <% if(session.user){%>
-          <td>
-            <a href="/quizes/<%= quizes[i].id %>/edit">
-              <button>Edit</button></a>
-          </td>
-          <td>
-            <form method="post"
-              action="/quizes/<%= quizes[i].id %>?_method=delete">
-                <button type="submit"
-                  onClick="return confirm('Delete: <%= quizes[i].question %>');">
-                  Delete
-                </button>
-            </form>
-          </td>
+          <% if(session.user.isAdmin || (session.user.id === quizes[i].UserId)){%>
+            <td>
+              <a href="/quizes/<%= quizes[i].id %>/edit">
+                <button>Edit</button></a>
+            </td>
+            <td>
+              <form method="post"
+                action="/quizes/<%= quizes[i].id %>?_method=delete">
+                  <button type="submit"
+                    onClick="return confirm('Delete: <%= quizes[i].question %>');">
+                    Delete
+                  </button>
+              </form>
+            </td>
+          <% } %>
         <% } %>
       </tr>
     <% } %>
