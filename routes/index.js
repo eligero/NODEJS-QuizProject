@@ -83,6 +83,11 @@ router.delete('/user/:userId(\\d+)', sessionController.loginRequired,
   userController.ownershipRequired, userController.destroy);
 /****************************END*USERS*ACCOUNT*********************************/
 
+/* GET credits routes */
+router.get('/credits', function(req, res){
+  res.render('credits', {errors: []});
+});
+
 
 
 module.exports = router;
