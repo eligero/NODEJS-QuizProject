@@ -6,3 +6,6 @@ DATABASE_STORAGE = quizDB.sqlite
 //.env file is only visible on local mode
 //On remote mode, we have to setup this env variable in the remote server
 DATABASE_URL=sqlite://:@:/
+
+//Setup PASSWORD_ENCRYPTION_KEY in .env file
+PASSWORD_ENCRYPTION_KEY=whatever-you-want

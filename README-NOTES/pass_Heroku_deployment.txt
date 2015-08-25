@@ -22,3 +22,5 @@ heroku addons:create heroku-postgresql:hobby-dev
 //DATABASE_URL=postgres://user:passwd@host:port/database
 //initialize NODE_ENV env variable
 NODE_ENV=production
+//Setup PASSWORD_ENCRYPTION_KEY in .env file
+PASSWORD_ENCRYPTION_KEY=whatever-you-want

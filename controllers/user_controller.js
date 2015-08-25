@@ -1,16 +1,21 @@
-var users = {
-  admin: {id: 1, username: 'admin', password: 'admin'},
-  esteban: {id: 2, username: 'esteban', password:'ligero'}
-};
+var models = require('../models/models');
 
 exports.authenticate = function(login, password, callback){
-  if(users[login]){
-    if(password === users[login].password){
-      callback(null, users[login]);
+  models.User.find({
+    where: {username: login}
+  })
+  .then(function(user){
+    if(user){
+      if(user.verifyPassword(password)){
+        callback(null, user);
+      }else{
+        callback(new Error('Wrong Password!'));
+      }
     }else{
-      callback(new Error('Wrong Password!'));
+      callback(new Error('User: '+login+" Doesn't exist!"));
     }
-  }else{
-    callback(new Error("User doesn't exist!"));
-  }
+  })
+  .catch(function(error){
+    callback(error);
+  });
 };

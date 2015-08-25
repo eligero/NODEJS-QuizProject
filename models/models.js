@@ -28,30 +28,48 @@ var sequelize = new Sequelize(
 
 /* Import Quiz table definition on quiz.js */
 var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
+/* Import Comment table definition on comment.js */
 var Comment = sequelize.import(path.join(__dirname, 'comment'));
+/* Import User table definition on user.js */
+var User = sequelize.import(path.join(__dirname, 'user'));
+
 
 /* Relationship comments and questions */
 Comment.belongsTo(Quiz);
 Quiz.hasMany(Comment);
 
+/* Relationship users and questions */
+Quiz.belongsTo(User);
+User.hasMany(Quiz);
+
 /* Export Quiz table definition*/
 exports.Quiz = Quiz;
+/* Export Comment table definition*/
 exports.Comment = Comment;
+/* Export User table definition*/
+exports.User = User;
 
-/* sequielize.sync() creates and initializes the Quiz table on the DB*/
+/* sequielize.sync() creates and initializes the tables on the DB*/
 sequelize.sync().then(function(){
-  Quiz.count().then(function(count){
+  User.count().then(function(count){
     if(count === 0){
-      Quiz.create({
-        question: 'What is the best desktop OS?',
-        answer: 'linux'
-      });
-      Quiz.create({
-        question: 'What is the best mobile OS?',
-        answer: 'android'
-      })
+      User.bulkCreate([
+        {username: 'admin', password: 'admin', isAdmin: true},
+        {username: 'esteban', password: 'ligero'}
+      ])
       .then(function(){
-        console.log('DB initialized');
+        console.log("User DB table initialized");
+        Quiz.count().then(function(count){
+          if(count === 0){
+            Quiz.bulkCreate([
+              {question: 'What is the best desktop OS?', answer: 'linux', UserId: 2},
+              {question: 'What is the best mobile OS?', answer: 'android', UserId: 2}
+            ])
+            .then(function(){
+              console.log("Quiz DB table initialized");
+            });
+          }
+        });
       });
     }
   });

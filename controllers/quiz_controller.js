@@ -76,13 +76,14 @@ exports.edit = function(req, res){
 
 /* POST /quizes/create */
 exports.create = function(req,res){
+  req.body.quiz.UserId = req.session.user.id;
   var quiz = models.Quiz.build(req.body.quiz);
   quiz.validate().then(function(error){
     if(error){//No HTML 5 browser
       quiz = {question: "Question", answer: "Answer"};
       res.render('quizes/new', {quiz: quiz, errors: error.errors});
     }else{
-      quiz.save({fields: ['question', 'answer']})
+      quiz.save({fields: ['question', 'answer', 'UserId']})
       .then(function(){
         res.redirect('/quizes');
       });
