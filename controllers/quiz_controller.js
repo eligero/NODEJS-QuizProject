@@ -41,15 +41,36 @@ exports.new = function(req, res){
 };
 
 /* GET /quizes && GET /user/:userId/quizes */
-exports.index = function(req, res){
-  var findOptions = {};
-  findOptions.order = [["question", "ASC"]];
-  if(req.user){
-    findOptions.where = {UserId: req.user.id};
+exports.index = function(req, res, next){
+  var findOptions = {where: {}, order: [["question", "ASC"]]};
+  var myQuestions = {};
+  if(req.user){//MyQuestions page
+    myQuestions = true;
+    if(req.query.search){
+      var lookfor = req.query.search;
+      lookfor = "%" + lookfor.replace(/(\s)+/g,'%') + "%";
+      //findOptions.where = ["LOWER(question) like ?", lookfor.toLowerCase()];
+      //findOptions.where = {question: {$like:lookfor}};
+      findOptions.where.question = {$like:lookfor};
+      //findOptions.where = ["UserId IS" + req.session.id];
+      //findOptions.where = {UserId: req.user.id};
+      findOptions.where.UserId = req.user.id;
+      //findOptions.where = ["LOWER(question) like ? AND UserId IS 3", lookfor.toLowerCase()];
+      //findOptions.where ={question: {$like:lookfor}, UserId: req.user.id };
+    }else{
+      findOptions.where.UserId = req.user.id;
+    }
+  }else{//Questions page
+    myQuestions = false;
+    if(req.query.search){
+      var lookfor = req.query.search;
+      lookfor = "%" + lookfor.replace(/(\s)+/g,'%') + "%";
+      findOptions.where.question = {$like:lookfor};
+    }
   }
   models.Quiz.findAll(findOptions)
   .then(function(quizes){
-    res.render('quizes/index',{quizes: quizes, errors: []});
+    res.render('quizes/index',{quizes: quizes, myquestions: myQuestions, errors: []});
   })
   .catch(function(error){
     next(error);

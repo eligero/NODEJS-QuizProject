@@ -70,7 +70,6 @@ router.get('/user/:userId(\\d+)/edit', sessionController.loginRequired,
   userController.ownershipRequired, userController.edit);
 router.get('/user/:userId(\\d+)/quizes', quizController.index);
 
-
 /* POST user account routes */
 router.post('/user', userController.create);
 

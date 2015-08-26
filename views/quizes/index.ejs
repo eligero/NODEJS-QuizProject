@@ -1,4 +1,18 @@
 <p>
+  <% if(myquestions){%>
+    <form method="get" action="/user/<%=session.user.id%>/quizes">
+      <input type="submit" value="Search" />
+      <input type="text" name="search" placeholder="Search in your questions"/>
+    </form>
+  <% }else{ %>
+    <form method="get" action="/quizes">
+      <input type="submit" value="Search" />
+      <input type="text" name="search" placeholder="Search" />
+    </form>
+  <% } %>
+</p>
+
+<p>
   <table>
     <% var i;for(i=0; i<quizes.length; i++){ %>
       <tr>
