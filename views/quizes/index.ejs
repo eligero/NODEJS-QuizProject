@@ -20,6 +20,9 @@
           <a href="/quizes/<%= quizes[i].id %>">
             <%= quizes[i].question %></a>
         </td>
+        <td>
+          <strong>Theme: </strong><%= quizes[i].theme %>
+        </td>
         <% if(session.user){%>
           <% if(session.user.isAdmin || (session.user.id === quizes[i].UserId)){%>
             <td>

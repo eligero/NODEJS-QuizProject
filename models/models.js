@@ -62,8 +62,14 @@ sequelize.sync().then(function(){
         Quiz.count().then(function(count){
           if(count === 0){
             Quiz.bulkCreate([
-              {question: 'What is the best desktop OS?', answer: 'linux', UserId: 2},
-              {question: 'What is the best mobile OS?', answer: 'android', UserId: 2}
+              {
+                question: 'What is the best desktop OS?', answer: 'linux',
+                theme: 'Technology', UserId: 2
+              },
+              {
+                question: 'What is the best mobile OS?', answer: 'android',
+                theme: 'Technology', UserId: 2
+              }
             ])
             .then(function(){
               console.log("Quiz DB table initialized");

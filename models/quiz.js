@@ -12,6 +12,16 @@ module.exports = function(sequelize, DataTypes){
       },
       image:{
         type: DataTypes.STRING
+      },
+      theme:{
+        type: DataTypes.STRING,
+        validate: {
+          isIn: {
+            args: [['Other','Geography','Humanities','Leisure','Science',
+            'Technology']],
+            msg: "Select Theme!"
+          }
+        }
       }
     }
   );

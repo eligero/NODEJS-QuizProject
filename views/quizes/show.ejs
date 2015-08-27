@@ -3,8 +3,8 @@
 <% } %>
 
 <form method="get" action="/quizes/<%= quiz.id %>/answer">
-  <p>Question: <%= quiz.question %>
-  <input type='text' name='answer' placeholder='Your answer' autofocus required >
+  <p><strong>Question: <%= quiz.question %></strong></p>
+  <p><input type='text' name='answer' placeholder='Your answer'>
   <input type='submit' value='Check'></p>
 </form>
 

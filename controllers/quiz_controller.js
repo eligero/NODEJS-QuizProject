@@ -33,9 +33,11 @@ exports.ownershipRequired = function(req, res, next){
 
 /* GET /quizes/new */
 exports.new = function(req, res){
-  var quiz = models.Quiz.build(
-    {question: "Question",
-     answer: "Answer"}
+  var quiz = models.Quiz.build({
+    question: "Question",
+    answer: "Answer",
+    theme: ""
+   }
   );
   res.render('quizes/new', {quiz: quiz, errors: []});
 };
@@ -127,7 +129,7 @@ exports.create = function(req,res){
       quiz = {question: "Question", answer: "Answer"};
       res.render('quizes/new', {quiz: quiz, errors: error.errors});
     }else{
-      quiz.save({fields: ['question', 'answer', 'UserId', 'image']})
+      quiz.save({fields: ['question', 'answer', 'theme', 'UserId', 'image']})
       .then(function(){
         res.redirect('/quizes');
       });
@@ -137,9 +139,11 @@ exports.create = function(req,res){
 
 /* PUT /quizes/:id [method-override] */
 exports.update = function(req, res){
-  var backupQuiz = {question: req.quiz.question, answer: req.quiz.answer};
+  var backupQuiz = {question: req.quiz.question, answer: req.quiz.answer,
+  theme: req.quiz.theme};
   req.quiz.question = req.body.quiz.question;
   req.quiz.answer = req.body.quiz.answer;
+  req.quiz.theme = req.body.quiz.theme;
 
   if(req.files.image){
     backupQuiz.image = req.quiz.image;
@@ -156,7 +160,7 @@ exports.update = function(req, res){
       res.render('quizes/edit', {quiz: req.quiz, errors: error.errors});
     }else{
       req.quiz.save({
-        fields: ["question", "answer", "image"]
+        fields: ["question", "answer", "theme", "image"]
       }).then(function(){
         res.redirect('/quizes');
       });
