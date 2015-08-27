@@ -44,32 +44,31 @@ exports.new = function(req, res){
 
 /* GET /quizes && GET /user/:userId/quizes */
 exports.index = function(req, res, next){
-  var findOptions = {where: {}, order: [["question", "ASC"]]};
+  //var findOptions = {where: {}, order: [["question", "ASC"]]};
+  var findOptions = {where: {}, order: 'LOWER(question) ASC'};
   var myQuestions = {};
+
   if(req.user){//MyQuestions page
     myQuestions = true;
-    if(req.query.search){
-      var lookfor = req.query.search;
-      lookfor = "%" + lookfor.replace(/(\s)+/g,'%') + "%";
-      //findOptions.where = ["LOWER(question) like ?", lookfor.toLowerCase()];
-      //findOptions.where = {question: {$like:lookfor}};
-      findOptions.where.question = {$like:lookfor};
-      //findOptions.where = ["UserId IS" + req.session.id];
-      //findOptions.where = {UserId: req.user.id};
-      findOptions.where.UserId = req.user.id;
-      //findOptions.where = ["LOWER(question) like ? AND UserId IS 3", lookfor.toLowerCase()];
-      //findOptions.where ={question: {$like:lookfor}, UserId: req.user.id };
-    }else{
-      findOptions.where.UserId = req.user.id;
-    }
+    findOptions.where.UserId = req.user.id;
   }else{//Questions page
     myQuestions = false;
-    if(req.query.search){
-      var lookfor = req.query.search;
-      lookfor = "%" + lookfor.replace(/(\s)+/g,'%') + "%";
-      findOptions.where.question = {$like:lookfor};
-    }
   }
+
+  if(req.query.search){
+    var lookfor = req.query.search;
+    lookfor = "%" + lookfor.replace(/(\s)+/g,'%') + "%";
+    //findOptions.where = ["LOWER(question) like ?", lookfor.toLowerCase()];
+    //findOptions.where = {question: {$like:lookfor}};
+    findOptions.where.question = {$like:lookfor};
+    //findOptions.where = ["LOWER(question) like ? AND UserId IS 3", lookfor.toLowerCase()];
+    //findOptions.where ={question: {$like:lookfor}, UserId: req.user.id };
+  }
+
+  if(req.query.theme && req.query.theme !== "all"){
+    findOptions.where.theme = req.query.theme;
+  }
+
   models.Quiz.findAll(findOptions)
   .then(function(quizes){
     res.render('quizes/index',{quizes: quizes, myquestions: myQuestions, errors: []});

@@ -1,16 +1,24 @@
 <p>
   <% if(myquestions){%>
     <form method="get" action="/user/<%=session.user.id%>/quizes">
-      <input type="submit" value="Search" />
-      <input type="text" name="search" placeholder="Search in your questions"/>
-    </form>
+    <input type="text" name="search" placeholder="Search in your questions"/>
   <% }else{ %>
     <form method="get" action="/quizes">
-      <input type="submit" value="Search" />
       <input type="text" name="search" placeholder="Search" />
-    </form>
   <% } %>
+      <select name="theme">
+        <option value="all" selected> Theme</option>
+        <option value="Other">Other</option>
+        <option value="Geography">Geography</option>
+        <option value="Humanities">Humanidades</option>
+        <option value="Leisure">Leisure</option>
+        <option value="Science">Science</option>
+        <option value="Technology">Technology</option>
+      </select>
+      <input type="submit" value="Search" />
+    </form>
 </p>
+
 
 <p>
   <table align="rigth">
