@@ -15,6 +15,10 @@ var sessionController = require('../controllers/session_controller');
 /* userController in order to use methods inside user_controller.js*/
 var userController = require('../controllers/user_controller');
 
+/* statisticsController in order to use methods inside statistics_controller.js*/
+var statisticsController = require('../controllers/statistics_controller');
+
+
 /* Autoload DB object*/
 router.param('quizId', quizController.load);
 router.param('commentId', commentController.load);
@@ -38,6 +42,7 @@ router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
   sessionController.loginRequired, commentController.ownershipRequired,
   commentController.publish);
+router.get('/quizes/statistics', statisticsController.statistics_process);
 
 /* POST question routes*/
 router.post('/quizes/create', sessionController.loginRequired,

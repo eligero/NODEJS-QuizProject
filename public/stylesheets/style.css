@@ -14,3 +14,4 @@ nav span             { margin: 0px 10px 0px 0px;
 
 .right 				 			 {float: right;}
 .qimage              {height: 150px; float: left;}
+table								 {text-align: left;margin-left: auto;margin-right: auto;}

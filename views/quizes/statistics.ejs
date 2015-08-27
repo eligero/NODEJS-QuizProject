@@ -1,0 +1,36 @@
+<h2>Statistics</h2>
+
+
+<table>
+<tr><td>Total number of questions:</td><td><strong><%= statistics.nQ %></strong></td></tr>
+<tr><td>Total number of questions with comments:</td><td><strong><%= statistics.nQwC %></strong></td></tr>
+<tr><td>Total number of questions without comments:</td><td><strong><%= statistics.nQwNC %></strong></td></tr>
+<tr><td>Total number of questions with all comments published:</td><td><strong><%= statistics.nQwACP %></strong></td></tr>
+<tr><td>Total number of questions with all comments not published:</td><td><strong><%= statistics.nQwACNP %></strong></td></tr>
+<tr><td>Total number of comments:</td><td><strong><%= statistics.nCPandNP %></strong></td></tr>
+<tr><td>Total number of published comments:</td><td><strong><%= statistics.nCP %></strong></td></tr>
+<tr><td>Total number of not published comments:</td><td><strong><%= statistics.nCNP %></strong></td></tr>
+<tr><td>Average comments per question:</td><td><strong><%= statistics.mCxQ %></strong></td></tr>
+<tr><td>Average published comments per question:</td><td><strong><%= statistics.mCxQP %></strong></td></tr>
+<tr><td>Average not published comments per questions:</td><td><strong><%= statistics.mCxQNP %></strong></td></tr>
+</table>
+
+
+
+<% if(session.user){ %>
+     <span><h2>Statistics of My Questions</h2>
+     <table>
+     <tr><td>Total number of questions:</td><td><strong><%= MYstatistics.nQ %></strong></td></tr>
+     <tr><td>Total number of questions with comments:</td><td><strong><%= MYstatistics.nQwC %></strong></td></tr>
+     <tr><td>Total number of questions without comments:</td><td><strong><%= MYstatistics.nQwNC %></strong></td></tr>
+     <tr><td>Total number of questions with all comments published:</td><td><strong><%= MYstatistics.nQwACP %></strong></td></tr>
+     <tr><td>Total number of questions with all comments not published:</td><td><strong><%= MYstatistics.nQwACNP %></strong></td></tr>
+     <tr><td>Total number of comments:</td><td><strong><%= MYstatistics.nCPandNP %></strong></td></tr>
+     <tr><td>Total number of published comments:</td><td><strong><%= MYstatistics.nCP %></strong></td></tr>
+     <tr><td>Total number of not published comments:</td><td><strong><%= MYstatistics.nCNP %></strong></td></tr>
+     <tr><td>Average comments per question:</td><td><strong><%= MYstatistics.mCxQ %></strong></td></tr>
+     <tr><td>Average published comments per question:</td><td><strong><%= MYstatistics.mCxQP %></strong></td></tr>
+     <tr><td>Average not published comments per questions:</td><td><strong><%= MYstatistics.mCxQNP %></strong></td></tr>
+     </table>
+    </span>
+<% } %>
