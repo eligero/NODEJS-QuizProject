@@ -86,7 +86,7 @@ exports.show = function(req, res){
 
 /* GET /quizes/:id/answer */
 exports.answer = function(req, res){
-  if(req.query.answer.length){
+  if(req.query.answer && req.query.answer.length){
     var check = {msg: "You're wrong!",
                  buttonRedir: req.quiz.id,
                  buttonValue: "Try again!",
