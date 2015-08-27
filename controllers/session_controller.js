@@ -34,7 +34,7 @@ exports.create = function(req, res){
 
 /* DELETE /logout */
 exports.destroy = function (req, res){
-  delete req.session.user;
+  req.session.cookie.expires = new Date(Date.now());
   //Redirecction to path before logout
   res.redirect(req.session.redir.toString());
 };

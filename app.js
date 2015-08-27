@@ -7,8 +7,8 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var methodOverride = require('method-override');
 var session = require('express-session');
-
 var routes = require('./routes/index');
+var constants = require('./constants');//Constants
 
 var app = express();
 
@@ -41,6 +41,14 @@ app.use(function(req, res, next){
   }
   //req.session visible on views
   res.locals.session = req.session;
+  next();
+});
+
+/* Autologout */
+app.use(function(req, res, next){
+  if(req.session.user){
+    req.session.cookie.expires = new Date(Date.now()+constants.T_AUTOLOGOUT);
+  }
   next();
 });
 
