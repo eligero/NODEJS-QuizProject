@@ -1,6 +1,6 @@
 {
   "name": "QUIZ-PROJECT",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -28,5 +28,9 @@
     "express-session": "~1.11.3",
     "multer": "~0.1.8",
     "fs": "0.0.2"
-  }
+  },
+  "description": "QUIZ-PROJECT:The game where check your knowledge And share it!",
+  "main": "app.js",
+  "author": "Esteban Ligero Gómez, plus.google.com/+EstebanLigeroGómez",
+  "license": "GPL v3"
 }
