@@ -4,3 +4,4 @@ npm-debug.log
 .env
 quizDB.sqlite
 public/media
+certs
