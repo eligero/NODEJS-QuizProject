@@ -1,33 +1,41 @@
 <p>
   <label for="question" class="rem"><strong>Question: </strong></label>
-  <input type="text" name="quiz[question]"
-    placeholder="<%= quiz.question %>" required>
+  <%if(newQuestion){%>
+    <input type="text" name="quiz[question]" placeholder="New question">
+  <%}else{%>
+    <input type="text" name="quiz[question]" value="<%= (quiz.question || "") %>">
+  <%}%>
 </p>
 
 <p>
   <label for="theme" class="rem"><strong>Theme: </strong></label>
   <select name="quiz[theme]">
-    <option value="Select" selected> Select theme </option>
-    <option value="Other"> Other </option>
-    <option value="Geography"> Geography </option>
-    <option value="Humanities"> Humanities </option>
-    <option value="Leisure"> Leisure </option>
-    <option value="Science"> Science </option>
-    <option value="Technology"> Technology </option>
+    <option value="Select" <%= varOption.Select%>> Select theme </option>
+    <option value="Other" <%= varOption.Other%>> Other </option>
+    <option value="Geography" <%= varOption.Geography%>> Geography </option>
+    <option value="Humanities" <%= varOption.Humanities%>> Humanities </option>
+    <option value="Leisure" <%= varOption.Leisure%>> Leisure </option>
+    <option value="Science" <%= varOption.Science%>> Science </option>
+    <option value="Technology" <%= varOption.Technology%>> Technology </option>
   </select>
 </p>
 
-
 <p>
   <label for="answer" class="rem"><strong>Answer: </strong></label>
-  <input type="text" name="quiz[answer]"
-    placeholder="<%= quiz.answer %>" required>
+    <%if(newQuestion){%>
+      <input type="text" name="quiz[answer]" placeholder="New Answer">
+    <%}else{%>
+      <input type="text" name="quiz[answer]" value="<%= (quiz.answer || "") %>">
+    <%}%>
 </p>
 
 <p>
   <label for="image" class="rem"><strong>Image: </strong></label>
-  <input type="file" accept="image/*" name="image"
-    placeholder="<%= quiz.answer %>" required>
+  <% if(quiz.image && quiz.image !== "none"){ %>
+        <p><img src="/media/<%= quiz.image %>"></p>
+        <input type="checkbox" name="box_rmimg"> With NO Image<br>
+  <% } %>
+  <strong>New Image:</strong><input type="file" accept="image/*" name="image" onchange="this.form.submit()">
 </p>
 
 <p>

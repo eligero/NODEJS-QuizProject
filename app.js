@@ -9,8 +9,12 @@ var methodOverride = require('method-override');
 var session = require('express-session');
 var routes = require('./routes/index');
 var constants = require('./constants');//Constants
+var fs = require('fs');
 
 var app = express();
+
+//Usabe edit questions [needed]
+global.imgTMP ="none";
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,6 +43,13 @@ app.use(function(req, res, next){
   if(!req.path.match(/\/login|\/logout|\/user/)){
     req.session.redir = req.path;
   }
+
+  //Usable edit questions [needed]
+  if( global.imgTMP !== "none" && (!req.path.match(/\/quizes\/create/)) && ((!req.path.match(/\/quizes\/\d+/)) || (req.method==="GET" && req.path.match(/\/quizes\/\d+/)) ) ){
+    fs.unlink('./public/media/'+global.imgTMP);
+    global.imgTMP = "none";
+  }
+
   //req.session visible on views
   res.locals.session = req.session;
   next();
@@ -51,7 +62,6 @@ app.use(function(req, res, next){
   }
   next();
 });
-
 
 app.use('/', routes);
 
@@ -87,6 +97,5 @@ app.use(function(err, req, res, next) {
         errors: []
     });
 });
-
 
 module.exports = app;

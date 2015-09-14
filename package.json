@@ -26,6 +26,7 @@
     "pg-hstore": "~2.3.2",
     "method-override": "~2.3.4",
     "express-session": "~1.11.3",
-    "multer": "~0.1.8"
+    "multer": "~0.1.8",
+    "fs": "0.0.2"
   }
 }

@@ -1,6 +1,5 @@
-Edit a Question:
-<form method="post"
-  action="/quizes/<%= quiz.id %>?_method=put"
+<h2>Edit a Question:</h2>
+<form method="post" action="/quizes/<%= quiz.id %>?_method=put"
   enctype="multipart/form-data">
     <% include _form.ejs%>
 </form>
